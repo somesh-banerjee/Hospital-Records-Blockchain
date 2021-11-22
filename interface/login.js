@@ -9,3 +9,5 @@ login = async() => {
         //this.setState({ errorMessage: err.message });
     }
 }
+
+export {login};
