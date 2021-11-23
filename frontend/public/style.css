@@ -44,3 +44,12 @@ body {
 .sign-in-button {
     margin-top: 20px;
 }
+
+#patient {
+   margin-top: 30px;
+}
+
+.hospital-name {
+   text-align: center;
+   margin-bottom: 5px;
+}
