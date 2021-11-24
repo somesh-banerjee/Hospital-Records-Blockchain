@@ -11,6 +11,7 @@ contract superadmin{
         string dob;
         string sex;
         string[] docs;
+        string[] docsD;
     }
     mapping(address => Patient) public patients;
     mapping(address => bool) public patientexist;
@@ -40,9 +41,10 @@ contract superadmin{
         patList.push(msg.sender);
     }
     
-    function upDoc(address pAdd, string memory hash) public{
+    function upDoc(address pAdd, string memory hash, string memory docD) public{
         require(hosAdmin[msg.sender]);
         patients[pAdd].docs.push(hash);
+        patients[pAdd].docsD.push(docD);
     }
     
     function getPatients() public view returns (address[] memory) {
@@ -56,11 +58,16 @@ contract superadmin{
         return patientexist[add];
     }
 
-    function getPatientDetails() public view returns (string memory,string memory, string memory, string memory, string[] memory) {
-        return (patients[msg.sender].name,
-            patients[msg.sender].aadhar,
-            patients[msg.sender].dob,
-            patients[msg.sender].sex,
-            patients[msg.sender].docs);
+    function getPatientDetails(address add) public view returns (string memory,string memory, string memory, string memory, string[] memory, string[] memory) {
+        return (patients[add].name,
+            patients[add].aadhar,
+            patients[add].dob,
+            patients[add].sex,
+            patients[add].docs,
+            patients[add].docsD);
+    }
+
+    function getHosDetails(address add) public view returns (string memory) {
+        return hospitals[add].name;
     }
 }

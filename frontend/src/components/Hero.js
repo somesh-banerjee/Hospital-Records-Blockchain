@@ -1,13 +1,32 @@
 import React from 'react'
 import { Button } from "react-bootstrap";
+import Contract from "../ethereum/superadmin";
 
 const Hero = () => {
 
     const handleClick = async ()=> {
-        const accounts = await window.ethereum.request({
-            method: 'eth_requestAccounts'
-        })
-        // console.log(accounts);
+        let accounts;
+        try {
+            accounts = await window.ethereum.request({
+                method: 'eth_requestAccounts'
+            })
+            console.log(accounts);
+            
+        } catch (err) {
+            console.log(err);
+            //this.setState({ errorMessage: err.message });
+        }
+        const isAdmin = await Contract.methods.checkAdmin(accounts).call();
+        if(isAdmin){
+            //redirect to admin page
+        }else{
+            const exist = await Contract.methods.checkPatient(accounts).call();
+            if(exist){
+                //redirect to patient page
+            }else{
+                //redirect to register page
+            }
+        }
     }
 
 
@@ -23,7 +42,6 @@ const Hero = () => {
 					</h2>
 
 					<Button 
-                    onClick={handleClick}
                     variant='danger' size="lg" className='sign-in-button' >Sign In</Button>
 				</div>
 			</section>
