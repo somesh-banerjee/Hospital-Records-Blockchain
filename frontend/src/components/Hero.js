@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from "react-bootstrap";
 import Contract from "../ethereum/superadmin";
+import { Redirect } from "react-router-dom";
 
 const Hero = () => {
 
@@ -16,9 +17,11 @@ const Hero = () => {
             console.log(err);
             //this.setState({ errorMessage: err.message });
         }
-        const isAdmin = await Contract.methods.checkAdmin(accounts).call();
+        const isAdmin = await Contract.methods.checkAdmin(accounts[0]).call();
+        console.log(isAdmin);
         if(isAdmin){
             //redirect to admin page
+            return <Redirect to={"/hospital"} />
         }else{
             const exist = await Contract.methods.checkPatient(accounts).call();
             if(exist){
@@ -42,6 +45,7 @@ const Hero = () => {
 					</h2>
 
 					<Button 
+                    onClick={handleClick}
                     variant='danger' size="lg" className='sign-in-button' >Sign In</Button>
 				</div>
 			</section>
