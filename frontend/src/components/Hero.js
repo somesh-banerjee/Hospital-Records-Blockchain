@@ -21,13 +21,16 @@ const Hero = () => {
         console.log(isAdmin);
         if(isAdmin){
             //redirect to admin page
-            return <Redirect to={"/hospital"} />
+            <Redirect to={"/hospital"} />
         }else{
             const exist = await Contract.methods.checkPatient(accounts).call();
             if(exist){
                 //redirect to patient page
+                <Redirect to={"/patient"} />
+
             }else{
                 //redirect to register page
+                
             }
         }
     }

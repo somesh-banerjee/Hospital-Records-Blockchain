@@ -26,8 +26,8 @@ const HospitalScreen = ({ match }) => {
 	return (
 		<div>
             <Nav 
-            />
-			<h2 className='hospital-name'>{Hospital.name}</h2>
+				name={Hospital.name}
+			/>
 			<Container>
 				<h5>Patient List: </h5>
 				<ListGroup as='ol' numbered>
