@@ -11,6 +11,10 @@ const HospitalScreen = ({ match }) => {
 		address: "",
 		name: ""
 	})
+
+	const [PatientList, getPatientList] = useState({
+		list: []
+	})
 	
 	const summary = async()=>{
 		const sum = await contract.methods.getHosDetails(match.params.id).call();
@@ -20,8 +24,16 @@ const HospitalScreen = ({ match }) => {
 				name: sum
 			}
 		)
+
+		const sum2 = await contract.methods.getPatients().call();
+		getPatientList(
+			{
+				list: sum2
+			}
+		)
 	}
 	summary()
+	// console.log(PatientList);
 
 	return (
 		<div>
@@ -31,9 +43,9 @@ const HospitalScreen = ({ match }) => {
 			<Container>
 				<h5>Patient List: </h5>
 				<ListGroup as='ol' numbered>
-					{patients.map((patient) => (
-						<Link to={`/patient/${patient._id}`}>
-							<ListGroup.Item as='li'>{patient.name}</ListGroup.Item>
+					{PatientList.list.map((patient) => (
+						<Link to={`/patient/${patient}`}>
+							<ListGroup.Item  key={patient} as='li'>{patient}</ListGroup.Item>
 						</Link>
 					))}
 				</ListGroup>
