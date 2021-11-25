@@ -4,7 +4,7 @@ import { create } from "ipfs-http-client";
 
 const ipfs = create('https://ipfs.infura.io:5001/api/v0')
 
-const FileUpload = () => {
+const FileUpload = (props) => {
 
     const [fileHash, setFileHash] = useState({
         buffer: null,
@@ -34,16 +34,23 @@ const FileUpload = () => {
 		console.log(hash.path);
 	};
 
-	return (
-		<div>
-			<h2> Upload the records</h2>
+	if(props.admin){
+		return (
+			<div>
+				<h2> Upload the records</h2>
+	
+				<form onSubmit={onSubmit}>
+					<input type='file' onChange={captureFile} />
+					<input type='submit' />
+				</form>
+			</div>
+		);
 
-			<form onSubmit={onSubmit}>
-				<input type='file' onChange={captureFile} />
-				<input type='submit' />
-			</form>
-		</div>
-	);
+	}
+	else{
+		return <div></div>
+	}
+
 };
 
 export default FileUpload;

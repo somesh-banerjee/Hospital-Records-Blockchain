@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from "react-bootstrap";
 import Contract from "../ethereum/superadmin";
 import { Redirect } from "react-router-dom";
 
 const Hero = () => {
+
+    const [url, setUrl] = useState("");
 
     const handleClick = async ()=> {
         let accounts;
@@ -18,19 +20,26 @@ const Hero = () => {
             //this.setState({ errorMessage: err.message });
         }
         const isAdmin = await Contract.methods.checkAdmin(accounts[0]).call();
+        const exist = await Contract.methods.checkPatient(accounts[0]).call();
         console.log(isAdmin);
         if(isAdmin){
+            console.log("Admin");
             //redirect to admin page
-            <Redirect to={"/hospital"} />
+            // <Redirect to={"/hospital/accounts[0]"} />
+            setUrl("/hospital/accounts[0]");
         }else{
-            const exist = await Contract.methods.checkPatient(accounts).call();
+            console.log("yha pe log kr rha hu");
             if(exist){
+                console.log("patient");
                 //redirect to patient page
-                <Redirect to={"/patient"} />
+                // <Redirect push to={"/patient/accounts[0]"} />
+                setUrl(`/patient/${accounts[0]}`);
+                console.log("nhi ho rha");
 
             }else{
                 //redirect to register page
-                
+                console.log("Go register idiot");
+
             }
         }
     }
@@ -46,6 +55,7 @@ const Hero = () => {
 					<h2 className='hero-subtitle'>
 						All your health records in one place. Safe and Secure!
 					</h2>
+                    <Redirect to={url} />
 
 					<Button 
                     onClick={handleClick}
