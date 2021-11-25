@@ -11,7 +11,7 @@ function App() {
 		
 			<Route exact path='/' component={HomeScreen} />
 			<Route path='/patient/:id' component={PatientScreen} />
-			<Route path='/hospital' component={HospitalScreen} />
+			<Route path='/hospital/:id' component={HospitalScreen} />
 	
 		</Router>
 	);
