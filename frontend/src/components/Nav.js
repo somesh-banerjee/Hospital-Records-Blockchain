@@ -2,16 +2,16 @@ import React from "react";
 import { Navbar, Container } from "react-bootstrap";
 import {Link} from "react-router-dom"
 
-const Nav = ({name}) => {
+const Nav = (props) => {
 	return (
 		<div>
 			<Navbar>
 				<Container>
-					<Navbar.Brand>{name}</Navbar.Brand>
+					<Navbar.Brand>{props.name}</Navbar.Brand>
 					<Navbar.Toggle />
 					<Navbar.Collapse className='justify-content-end'>
 						<Navbar.Text>
-							Signed in as: Hospital name
+							Signed in as: {props.name}
 						</Navbar.Text>
 					</Navbar.Collapse>
 				</Container>

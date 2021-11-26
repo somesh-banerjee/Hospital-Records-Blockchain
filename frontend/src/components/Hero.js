@@ -1,20 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from "react-bootstrap";
-<<<<<<< Updated upstream
-=======
 import Contract from "../ethereum/superadmin";
 import { Redirect } from "react-router-dom";
->>>>>>> Stashed changes
 
 const Hero = () => {
 
+    const [url, setUrl] = useState("");
+
     const handleClick = async ()=> {
-<<<<<<< Updated upstream
-        const accounts = await window.ethereum.request({
-            method: 'eth_requestAccounts'
-        })
-        // console.log(accounts);
-=======
         let accounts;
         try {
             accounts = await window.ethereum.request({
@@ -27,19 +20,28 @@ const Hero = () => {
             //this.setState({ errorMessage: err.message });
         }
         const isAdmin = await Contract.methods.checkAdmin(accounts[0]).call();
+        const exist = await Contract.methods.checkPatient(accounts[0]).call();
         console.log(isAdmin);
         if(isAdmin){
+            console.log("Admin");
             //redirect to admin page
-            return <Redirect to={"/hospital"} />
+            // <Redirect to={"/hospital/accounts[0]"} />
+            setUrl(`/hospital/${accounts[0]}`);
         }else{
-            const exist = await Contract.methods.checkPatient(accounts).call();
+            console.log("yha pe log kr rha hu");
             if(exist){
+                console.log("patient");
                 //redirect to patient page
+                // <Redirect push to={"/patient/accounts[0]"} />
+                setUrl(`/patient/${accounts[0]}`);
+                console.log("nhi ho rha");
+
             }else{
                 //redirect to register page
+                console.log("Go register idiot");
+
             }
         }
->>>>>>> Stashed changes
     }
 
 
@@ -53,14 +55,10 @@ const Hero = () => {
 					<h2 className='hero-subtitle'>
 						All your health records in one place. Safe and Secure!
 					</h2>
+                    <Redirect to={url} />
 
-<<<<<<< Updated upstream
 					<Button 
                     onClick={handleClick}
-=======
-					<Button
-                    onClick = {handleClick}
->>>>>>> Stashed changes
                     variant='danger' size="lg" className='sign-in-button' >Sign In</Button>
 				</div>
 			</section>

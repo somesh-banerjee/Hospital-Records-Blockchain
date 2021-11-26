@@ -3,16 +3,18 @@ import { ListGroup, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import patients from "../data/patients";
 import Nav from "../components/Nav";
+import contract from "../ethereum/superadmin";
 
-<<<<<<< Updated upstream
-const HospitalScreen = () => {
-=======
 const HospitalScreen = ({ match }) => {
 
-	
 	const [Hospital, getHospital] = useState({
 		address: "",
 		name: ""
+	})
+
+	const [PatientList, getPatientList] = useState({
+		list: [],
+		names: []
 	})
 	
 	const summary = async()=>{
@@ -23,21 +25,29 @@ const HospitalScreen = ({ match }) => {
 				name: sum
 			}
 		)
+
+		const sum2 = await contract.methods.getPatients().call();
+		getPatientList(
+			{
+				list: sum2[0],
+				names: sum2[1]
+			}
+		)
 	}
 	summary()
+	// console.log(PatientList);
 
->>>>>>> Stashed changes
 	return (
 		<div>
             <Nav 
-            />
-			<h2 className='hospital-name'>{Hospital.name}</h2>
+				name={Hospital.name}
+			/>
 			<Container>
 				<h5>Patient List: </h5>
 				<ListGroup as='ol' numbered>
-					{patients.map((patient) => (
-						<Link to={`/patient/${patient._id}`}>
-							<ListGroup.Item as='li'>{patient.name}</ListGroup.Item>
+					{PatientList.list.map((patient) => (
+						<Link to={`/patient/${patient}`}>
+							<ListGroup.Item  key={patient} as='li'>{patient}</ListGroup.Item>
 						</Link>
 					))}
 				</ListGroup>

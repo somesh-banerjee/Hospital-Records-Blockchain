@@ -31,22 +31,4 @@ const register = async() => {
     
 }
 
-
-
-
-const client = create('https://ipfs.infura.io:5001/api/v0')
-
-const captureFile = (event) =>{
-    // event.preventDefault()
-    //console.log("File captured......")
-    const file= event.target.files[0]
-    const reader = new window.FileReader()
-    reader.readAsArrayBuffer(file)
-    reader.onloadend = () =>{
-        console.log('buffer', Buffer(reader.result))
-        this.setState({buffer: Buffer(reader.result)})
-    }
-    
-}
-
 export default login;

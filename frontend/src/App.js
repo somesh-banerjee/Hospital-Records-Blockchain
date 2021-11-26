@@ -8,7 +8,7 @@ import HospitalScreen from "./screens/HospitalScreen";
 function App() {
 	return (
 		<Router>
-		
+			
 			<Route exact path='/' component={HomeScreen} />
 			<Route path='/patient/:id' component={PatientScreen} />
 			<Route path='/hospital/:id' component={HospitalScreen} />
