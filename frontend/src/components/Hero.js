@@ -26,7 +26,7 @@ const Hero = () => {
             console.log("Admin");
             //redirect to admin page
             // <Redirect to={"/hospital/accounts[0]"} />
-            setUrl("/hospital/accounts[0]");
+            setUrl(`/hospital/${accounts[0]}`);
         }else{
             console.log("yha pe log kr rha hu");
             if(exist){

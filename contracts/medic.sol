@@ -2,8 +2,12 @@
 pragma solidity ^0.8.0;
 
 contract superadmin{
-    address admin = 0x473c68D8eBE549F820d15BcE0A493e0d6990a38c;
+    address public admin;
     mapping(address => bool) public hosAdmin;
+
+    constructor(){
+        admin = msg.sender;
+    }
     
     struct Patient{
         string name;
@@ -16,6 +20,7 @@ contract superadmin{
     mapping(address => Patient) public patients;
     mapping(address => bool) public patientexist;
     address[] patList;
+    string[] patNList;
     
     struct Hospital{
         string name;
@@ -39,6 +44,8 @@ contract superadmin{
         patients[msg.sender].dob = d;
         patients[msg.sender].sex = s;
         patList.push(msg.sender);
+        patientexist[msg.sender]=true;
+        patNList.push(n);
     }
     
     function upDoc(address pAdd, string memory hash, string memory docD) public{
@@ -47,8 +54,8 @@ contract superadmin{
         patients[pAdd].docsD.push(docD);
     }
     
-    function getPatients() public view returns (address[] memory) {
-        return patList;
+    function getPatients() public view returns (address[] memory, string[] memory) {
+        return (patList,patNList);
     }
 
     function checkAdmin(address add) public view returns (bool) {

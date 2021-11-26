@@ -3,6 +3,24 @@ import SuperAdmin from './contracts/superadmin.json';
 
 const abi = [
 	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [],
+		"name": "admin",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -111,6 +129,11 @@ const abi = [
 				"internalType": "address[]",
 				"name": "",
 				"type": "address[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
 			}
 		],
 		"stateMutability": "view",
@@ -282,7 +305,7 @@ const abi = [
 const instance = new web3.eth.Contract(
 	//JSON.parse(SuperAdmin),
 	abi,
-	'0x9C0007790dF6EE3354F14af7B2c9b949b58f479E'
+	'0xaa228E0da019D2dc2C24d00708A07B54FEe4c8D2'
 );
 
 export default instance;

@@ -13,7 +13,8 @@ const HospitalScreen = ({ match }) => {
 	})
 
 	const [PatientList, getPatientList] = useState({
-		list: []
+		list: [],
+		names: []
 	})
 	
 	const summary = async()=>{
@@ -28,7 +29,8 @@ const HospitalScreen = ({ match }) => {
 		const sum2 = await contract.methods.getPatients().call();
 		getPatientList(
 			{
-				list: sum2
+				list: sum2[0],
+				names: sum2[1]
 			}
 		)
 	}

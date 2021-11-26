@@ -37,22 +37,24 @@ const PatientScreen = ({ match }) => {
 	const [admin, setAdmin] = useState(false);
 
 	const checkAdmin = async ()=> {
-		console.log("entered fn");
+		//console.log("entered fn");
         let accounts;
         try {
             accounts = await window.ethereum.request({
-                method: 'eth_requestAccounts'
+                method: 'eth_accounts'
             })
-            console.log(accounts);
+            //console.log(accounts);
             
         } catch (err) {
             console.log(err);
             //this.setState({ errorMessage: err.message });
         }
         const isAdmin = await Contract.methods.checkAdmin(accounts[0]).call();
-		setAdmin(isAdmin)
+		setAdmin(isAdmin);
+		//console.log(admin);
 		
     }
+	checkAdmin();
 
 
 	return (
