@@ -29,11 +29,7 @@ const Register = () => {
 		});
 	};
 
-	const progress = () => toast.info('Please wait while we set up things for you', {
-		position: "top-right",
-		autoClose: 5000,
-		});
-	const transaction = () => toast.info('Initiating transaction.', {
+	const transaction = () => toast.info('Initiating transaction. Wait for wallet to confirm transaction', {
 			position: "top-right",
 			autoClose: 5000,
 			});
@@ -47,7 +43,6 @@ const Register = () => {
 			});
 	const handleSubmit = async () => {
 		console.log(details);
-		progress()
 		const accounts = await window.ethereum.request({
 			method: "eth_accounts",
 		});

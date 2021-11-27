@@ -4,6 +4,7 @@ import Nav from "../components/Nav";
 import FileUpload from "../components/FileUpload";
 import contract from "../ethereum/superadmin";
 import Contract from "../ethereum/superadmin";
+import Link, { LinkContainer } from 'react-router-bootstrap';
 
 const PatientScreen = ({ match }) => {
 	// const patient = patients.find((p) => p._id === match.params.id);
@@ -32,6 +33,8 @@ const PatientScreen = ({ match }) => {
 		});
 	};
 	summary();
+	// console.log(patient.docs);
+	// console.log(patient.docsD);
 
 	const [admin, setAdmin] = useState(false);
 
@@ -92,14 +95,16 @@ const PatientScreen = ({ match }) => {
 							<h3>{patient.name}'s Documents 📃</h3>
 							<Row>
 								<Col lg={3}>
-									{patient.docsD.forEach((docD) => {
+									{patient.docsD.map((docD) => (
 										<Row>{docD}</Row>
-									})}
+									))}
 								</Col>
 								<Col lg={3}>
-									{patient.docs.forEach((doc) => {
-										<Row>{doc}</Row>
-									})}
+									{patient.docs.map((doc) => (
+										<a href={`https://ipfs.infura.io/ipfs/${doc}`} target="_blank" rel="noopener noreferrer">
+											<Row>{doc}</Row>
+										</a>
+									))}
 								</Col>
 							</Row>
 						</Container>

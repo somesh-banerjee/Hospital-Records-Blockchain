@@ -50,7 +50,7 @@ const Hero = () => {
 		<div>
 			<section className='hero'>
 				<div className='hero-content'>
-					<h1 className='hero-title'>Health Zone</h1>
+					<h1 className='hero-title'>Health Records</h1>
 
 					<h2 className='hero-subtitle'>
 						All your health records in one place. Safe and Secure!
@@ -59,6 +59,7 @@ const Hero = () => {
 
 					<div className='buttons' >
 						<Row>
+							<Col lg={4} ></Col>
 							<Col lg={2}>
 								<Button
 									onClick={handleClick}
