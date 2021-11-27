@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Form, Modal, Button } from "react-bootstrap";
 import Contract from "../ethereum/superadmin";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
-const Register = ({ register }) => {
+const Register = () => {
 	const [show, setShow] = useState(false);
 
 	const handleClose = () => setShow(false);
@@ -27,24 +29,41 @@ const Register = ({ register }) => {
 		});
 	};
 
-	const handleSubmit = async()=>{
-        console.log(details);
+	const progress = () => toast.info('Please wait while we set up things for you', {
+		position: "top-right",
+		autoClose: 5000,
+		});
+	const transaction = () => toast.info('Initiating transaction.', {
+			position: "top-right",
+			autoClose: 5000,
+			});
+	const success = () => toast.success('Success! You can now login', {
+			position: "top-right",
+			autoClose: 5000,
+			});
+	const err = () => toast.error('Oops! An error occurred. Please try again!', {
+			position: "top-right",
+			autoClose: 5000,
+			});
+	const handleSubmit = async () => {
+		console.log(details);
+		progress()
 		const accounts = await window.ethereum.request({
-			method: 'eth_accounts'
+			method: "eth_accounts",
 		});
 		try {
-			await Contract.methods.newPatient(
-				details.name,
-				details.aadhar,
-				details.dob,
-				details.sex
-			).send({
-				from: accounts[0]
-			});
+			transaction()
+			await Contract.methods
+				.newPatient(details.name, details.aadhar, details.dob, details.sex)
+				.send({
+					from: accounts[0],
+				});
+			success()
 		} catch (error) {
 			console.log(error);
+			err()
 		}
-    }
+	};
 
 	return (
 		<div>
@@ -68,7 +87,7 @@ const Register = ({ register }) => {
 							<Form.Control
 								name='name'
 								value={details.name}
-                                onChange={handleChange}
+								onChange={handleChange}
 								type='text'
 								placeholder='Enter name'
 							/>
@@ -78,7 +97,7 @@ const Register = ({ register }) => {
 							<Form.Control
 								name='dob'
 								value={details.dob}
-                                onChange={handleChange}
+								onChange={handleChange}
 								type='date'
 								placeholder='Enter DOB'
 							/>
@@ -88,7 +107,7 @@ const Register = ({ register }) => {
 							<Form.Select
 								name='sex'
 								value={details.sex}
-                                onChange={handleChange}
+								onChange={handleChange}
 								aria-label='Default select example'
 							>
 								<option>Select your Gender</option>
@@ -102,14 +121,14 @@ const Register = ({ register }) => {
 							<Form.Control
 								name='aadhar'
 								value={details.aadhar}
-                                onChange={handleChange}
+								onChange={handleChange}
 								type='number'
 								placeholder='Enter Aadhar Number'
 							/>
 						</Form.Group>
-					<Button variant='outline-danger' onClick={handleSubmit}>
-						Submit
-					</Button>
+						<Button variant='outline-danger' onClick={handleSubmit}>
+							Submit
+						</Button>
 					</Form>
 				</Modal.Body>
 				<Modal.Footer>
@@ -118,6 +137,8 @@ const Register = ({ register }) => {
 					</Button>
 				</Modal.Footer>
 			</Modal>
+			<ToastContainer
+			/>
 		</div>
 	);
 };
