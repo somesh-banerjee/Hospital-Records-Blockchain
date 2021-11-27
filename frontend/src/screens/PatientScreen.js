@@ -90,7 +90,18 @@ const PatientScreen = ({ match }) => {
 					<Row className='mt-5'>
 						<Container>
 							<h3>{patient.name}'s Documents 📃</h3>
-							
+							<Row>
+								<Col lg={3}>
+									{patient.docsD.forEach((docD) => {
+										<Row>{docD}</Row>
+									})}
+								</Col>
+								<Col lg={3}>
+									{patient.docs.forEach((doc) => {
+										<Row>{doc}</Row>
+									})}
+								</Col>
+							</Row>
 						</Container>
 					</Row>
 				</Container>
