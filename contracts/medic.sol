@@ -33,12 +33,14 @@ contract superadmin{
     }
     
     function newHospital(string memory n,address u) public restricted{
+        require(hosAdmin[u]==false);
         hospitals[u].name = n;
         hosAdmin[u]=true;
     }
     
     function newPatient(string memory n,string memory a, string memory d, string memory s) public{
         require(hosAdmin[msg.sender]==false);
+        require(patientexist[msg.sender]==false);
         patients[msg.sender].name=n;
         patients[msg.sender].aadhar=a;
         patients[msg.sender].dob = d;
