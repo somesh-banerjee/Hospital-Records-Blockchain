@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { ListGroup, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import patients from "../data/patients";
 import Nav from "../components/Nav";
 import contract from "../ethereum/superadmin";
 
@@ -35,7 +34,7 @@ const HospitalScreen = ({ match }) => {
 		)
 	}
 	summary()
-	// console.log(PatientList);
+	console.log(Hospital.name);
 
 	return (
 		<div>

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import patients from "../data/patients";
 import Nav from "../components/Nav";
 import FileUpload from "../components/FileUpload";
 import contract from "../ethereum/superadmin";
@@ -15,52 +14,51 @@ const PatientScreen = ({ match }) => {
 		dob: "",
 		sex: "",
 		docs: [],
-		docsD: []
-	})
-	
-	const summary = async()=>{
-		const sum = await contract.methods.getPatientDetails(match.params.id).call();
-		getPatient(
-			{
-				address: match.params.id,
-				name: sum[0],
-				aadhar: sum[1],
-				dob: sum[2],
-				sex: sum[3],
-				docs: sum[4],
-				docsD: sum[5]
-			}
-		)
-	}
-	summary()
+		docsD: [],
+	});
+
+	const summary = async () => {
+		const sum = await contract.methods
+			.getPatientDetails(match.params.id)
+			.call();
+		getPatient({
+			address: match.params.id,
+			name: sum[0],
+			aadhar: sum[1],
+			dob: sum[2],
+			sex: sum[3],
+			docs: sum[4],
+			docsD: sum[5],
+		});
+	};
+	summary();
 
 	const [admin, setAdmin] = useState(false);
 
-	const checkAdmin = async ()=> {
+	const checkAdmin = async () => {
 		//console.log("entered fn");
-        let accounts;
-        try {
-            accounts = await window.ethereum.request({
-                method: 'eth_accounts'
-            })
-            //console.log(accounts);
-            
-        } catch (err) {
-            console.log(err);
-            //this.setState({ errorMessage: err.message });
-        }
-        const isAdmin = await Contract.methods.checkAdmin(accounts[0]).call();
+		let accounts;
+		try {
+			accounts = await window.ethereum.request({
+				method: "eth_accounts",
+			});
+			//console.log(accounts);
+		} catch (err) {
+			console.log(err);
+			//this.setState({ errorMessage: err.message });
+		}
+		const isAdmin = await Contract.methods.checkAdmin(accounts[0]).call();
 		setAdmin(isAdmin);
 		//console.log(admin);
-		
-    }
+	};
 	checkAdmin();
 
+	const details = ["Name", "Date of Birth", "Sex", "Aadhar", "Address"];
 
 	return (
 		<div>
 			<Nav name={patient.name} />
-			<section id='patient'>
+			<section className='mt-1'>
 				<Container>
 					<Row>
 						<Col>
@@ -88,6 +86,12 @@ const PatientScreen = ({ match }) => {
 						<Col>
 							<FileUpload admin={admin} />
 						</Col>
+					</Row>
+					<Row className='mt-5'>
+						<Container>
+							<h3>{patient.name}'s Documents 📃</h3>
+							
+						</Container>
 					</Row>
 				</Container>
 			</section>
