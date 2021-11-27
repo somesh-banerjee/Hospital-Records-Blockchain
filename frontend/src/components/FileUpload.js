@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { create } from "ipfs-http-client";
-
+import Contract from "../ethereum/superadmin";
 
 const ipfs = create('https://ipfs.infura.io:5001/api/v0')
 
@@ -32,6 +32,20 @@ const FileUpload = (props) => {
 		const hash = await ipfs.add(fileHash.buffer);
 		const url = `https://ipfs.infura.io/ipfs/${hash.path}`;
 		console.log(hash.path);
+		const accounts = await window.ethereum.request({
+			method: 'eth_accounts'
+		});
+		try {
+			await Contract.methods.upDoc(
+				props.pAdd,
+				hash.path,
+				"Document"
+			).send({
+				from: accounts[0]
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	if(props.admin){
