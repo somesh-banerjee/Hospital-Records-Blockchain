@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Modal, Button } from "react-bootstrap";
+import Contract from "../ethereum/superadmin";
 
 const Register = ({ register }) => {
 	const [show, setShow] = useState(false);
@@ -26,8 +27,23 @@ const Register = ({ register }) => {
 		});
 	};
 
-	const handleSubmit = ()=>{
+	const handleSubmit = async()=>{
         console.log(details);
+		const accounts = await window.ethereum.request({
+			method: 'eth_accounts'
+		});
+		try {
+			await Contract.methods.newPatient(
+				details.name,
+				details.aadhar,
+				details.dob,
+				details.sex
+			).send({
+				from: accounts[0]
+			});
+		} catch (error) {
+			console.log(error);
+		}
     }
 
 	return (

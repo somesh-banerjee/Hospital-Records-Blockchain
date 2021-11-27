@@ -34,7 +34,7 @@ const HospitalScreen = ({ match }) => {
 		)
 	}
 	summary()
-	console.log(Hospital.name);
+	//console.log(Hospital.name);
 
 	return (
 		<div>
