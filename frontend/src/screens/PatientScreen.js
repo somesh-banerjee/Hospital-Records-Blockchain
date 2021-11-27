@@ -86,7 +86,7 @@ const PatientScreen = ({ match }) => {
 							</Row>
 						</Col>
 						<Col>
-							<FileUpload admin={admin} />
+							<FileUpload admin={admin} pAdd={match.params.id} />
 						</Col>
 					</Row>
 				</Container>
