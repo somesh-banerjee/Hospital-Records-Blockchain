@@ -1,13 +1,34 @@
 import React, { useState } from "react";
 import { Form, Modal, Button } from "react-bootstrap";
 
-const Register = ({register}) => {
+const Register = ({ register }) => {
 	const [show, setShow] = useState(false);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
-	const handleSubmit = () => {};
+	const [details, setDetails] = useState({
+		name: "",
+		dob: "",
+		sex: "",
+		aadhar: "",
+	});
+
+	const handleChange = (event) => {
+		event.preventDefault();
+		const { name, value } = event.target;
+
+		setDetails((prevValue) => {
+			return {
+				...prevValue,
+				[name]: value,
+			};
+		});
+	};
+
+	const handleSubmit = ()=>{
+        console.log(details);
+    }
 
 	return (
 		<div>
@@ -26,35 +47,58 @@ const Register = ({register}) => {
 				</Modal.Header>
 				<Modal.Body>
 					<Form>
-						<Form.Group className='mb-3' controlId='formBasicEmail'>
-							<Form.Label>Email address</Form.Label>
-							<Form.Control type='email' placeholder='Enter email' />
+						<Form.Group className='mb-3'>
+							<Form.Label>Name</Form.Label>
+							<Form.Control
+								name='name'
+								value={details.name}
+                                onChange={handleChange}
+								type='text'
+								placeholder='Enter name'
+							/>
 						</Form.Group>
-						<Form.Group className='mb-3' controlId='formBasicEmail'>
+						<Form.Group className='mb-3'>
 							<Form.Label>DOB</Form.Label>
-							<Form.Control type='date' placeholder='Enter DOB' />
+							<Form.Control
+								name='dob'
+								value={details.dob}
+                                onChange={handleChange}
+								type='date'
+								placeholder='Enter DOB'
+							/>
 						</Form.Group>
-						<Form.Group className='mb-3' controlId='formBasicEmail'>
+						<Form.Group className='mb-3'>
 							<Form.Label>SEX</Form.Label>
-							<Form.Select aria-label='Default select example'>
+							<Form.Select
+								name='sex'
+								value={details.sex}
+                                onChange={handleChange}
+								aria-label='Default select example'
+							>
 								<option>Select your Gender</option>
-								<option value='1'>Male</option>
-								<option value='2'>Female</option>
-								<option value='3'>Other</option>
+								<option value='Male'>Male</option>
+								<option value='Female'>Female</option>
+								<option value='Other'>Other</option>
 							</Form.Select>
 						</Form.Group>
-						<Form.Group className='mb-3' controlId='formBasicEmail'>
+						<Form.Group className='mb-3'>
 							<Form.Label>Aadhar</Form.Label>
-							<Form.Control type='number' placeholder='Enter Aadhar Number' />
+							<Form.Control
+								name='aadhar'
+								value={details.aadhar}
+                                onChange={handleChange}
+								type='number'
+								placeholder='Enter Aadhar Number'
+							/>
 						</Form.Group>
+					<Button variant='outline-danger' onClick={handleSubmit}>
+						Submit
+					</Button>
 					</Form>
 				</Modal.Body>
 				<Modal.Footer>
 					<Button variant='danger' onClick={handleClose}>
 						Close
-					</Button>
-					<Button variant='outline-danger' onClick={handleSubmit}>
-						Submit
 					</Button>
 				</Modal.Footer>
 			</Modal>
