@@ -4,7 +4,7 @@ import Nav from "../components/Nav";
 import FileUpload from "../components/FileUpload";
 import contract from "../ethereum/superadmin";
 import Contract from "../ethereum/superadmin";
-import Link, { LinkContainer } from 'react-router-bootstrap';
+import "./Screen.css";
 
 const PatientScreen = ({ match }) => {
 	// const patient = patients.find((p) => p._id === match.params.id);
@@ -56,53 +56,57 @@ const PatientScreen = ({ match }) => {
 	};
 	checkAdmin();
 
-	const details = ["Name", "Date of Birth", "Sex", "Aadhar", "Address"];
-
 	return (
-		<div>
+		<div className='patientPage'>
 			<Nav name={patient.name} />
 			<section className='mt-1'>
 				<Container>
-					<Row>
-						<Col>
-							<Row>
+					<h4>Patient details</h4>
+					<Row className='table-row'>
+						<Col className='table-col'>
+							<Row className='table-row1'>
 								<Col lg={4}>Name</Col>
 								<Col lg={4}>{patient.name}</Col>
 							</Row>
-							<Row>
+							<Row className='table-row2'>
 								<Col lg={4}>DATE OF BIRTH</Col>
 								<Col lg={4}>{patient.dob}</Col>
 							</Row>
-							<Row>
+							<Row className='table-row1'>
 								<Col lg={4}>SEX</Col>
 								<Col lg={4}>{patient.sex}</Col>
 							</Row>
-							<Row>
+							<Row className='table-row2'>
 								<Col lg={4}>aadhar</Col>
 								<Col lg={4}>{patient.aadhar}</Col>
 							</Row>
-							<Row>
+							<Row className='table-row1'>
 								<Col lg={4}>Address</Col>
 								<Col lg={4}>{patient.address}</Col>
 							</Row>
 						</Col>
-						<Col>
+						<Col className='upload'>
 							<FileUpload admin={admin} pAdd={match.params.id} />
 						</Col>
 					</Row>
 					<Row className='mt-5'>
 						<Container>
-							<h3>{patient.name}'s Documents 📃</h3>
+							<h4>{patient.name}'s Documents 📃</h4>
+
 							<Row>
-								<Col lg={3}>
-									{patient.docsD.map((docD) => (
-										<Row>{docD}</Row>
+								<Col className='table-row3' lg={3}>
+									{patient.docsD.map((docD, index) => (
+										<div key={index} className='table-row4'>{docD}</div>
 									))}
 								</Col>
-								<Col lg={3}>
-									{patient.docs.map((doc) => (
-										<a href={`https://ipfs.infura.io/ipfs/${doc}`} target="_blank" rel="noopener noreferrer">
-											<Row>{doc}</Row>
+								<Col className='table-row3' lg={3}>
+									{patient.docs.map((doc, index) => (
+										<a
+											href={`https://ipfs.infura.io/ipfs/${doc}`}
+											target='_blank'
+											rel='noopener noreferrer'
+										>
+											<div key={index} className='table-row4'>{doc}</div>
 										</a>
 									))}
 								</Col>

@@ -37,7 +37,7 @@ const HospitalScreen = ({ match }) => {
 	//console.log(Hospital.name);
 
 	return (
-		<div>
+		<div className='hospitalPage' >
             <Nav 
 				name={Hospital.name}
 			/>
@@ -46,7 +46,7 @@ const HospitalScreen = ({ match }) => {
 				<ListGroup as='ol' numbered>
 					{PatientList.list.map((patient) => (
 						<Link to={`/patient/${patient}`}>
-							<ListGroup.Item  key={patient} as='li'>{patient}</ListGroup.Item>
+							<ListGroup.Item className='table-row5' key={patient} as='li'>{patient}</ListGroup.Item>
 						</Link>
 					))}
 				</ListGroup>

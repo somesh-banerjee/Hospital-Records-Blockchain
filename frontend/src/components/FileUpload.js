@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { create } from "ipfs-http-client";
 import Contract from "../ethereum/superadmin";
 import { Button, Form } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ipfs = create("https://ipfs.infura.io:5001/api/v0");
 
@@ -15,7 +17,7 @@ const FileUpload = (props) => {
 
 	const handleInput = (event) => {
 		event.preventDefault();
-		const {name, value} = event.target;
+		const { name, value } = event.target;
 		setInput(value);
 	};
 
@@ -34,9 +36,35 @@ const FileUpload = (props) => {
 	// Example Hash : "Qmc9TdNL5kDbKpv2XAPWtQPiqUj7bEi9Be8Tthh8ZnShD1"
 	//Example URL: "https://ipfs.infura.io/ipfs/Qmc9TdNL5kDbKpv2XAPWtQPiqUj7bEi9Be8Tthh8ZnShD1"
 
+	const wait = () =>
+		toast.info("Taking you to the wallet", {
+			position: "top-right",
+			autoClose: 5000,
+		});
+	const transaction = () =>
+		toast.info(
+			"Initiating transaction. Wait for wallet to confirm transaction",
+			{
+				position: "top-right",
+				autoClose: 10000,
+			}
+		);
+
+	const success = () =>
+		toast.success("Success! You file has been added to IPFS", {
+			position: "top-right",
+			autoClose: 5000,
+		});
+	const err = (e) =>
+		toast.error(e, {
+			position: "top-right",
+			autoClose: 5000,
+		});
+
 	const onSubmit = async (event) => {
 		event.preventDefault();
 		console.log("Submitting the form...");
+		wait();
 		const hash = await ipfs.add(fileHash.buffer);
 		const url = `https://ipfs.infura.io/ipfs/${hash.path}`;
 		console.log(hash.path);
@@ -44,20 +72,22 @@ const FileUpload = (props) => {
 			method: "eth_accounts",
 		});
 		try {
+			transaction();
 			await Contract.methods.upDoc(props.pAdd, hash.path, input).send({
 				from: accounts[0],
 			});
+			setInput("");
+			success();
 		} catch (error) {
 			console.log(error);
+			err(error.message);
 		}
 	};
-
-
 
 	if (props.admin) {
 		return (
 			<div>
-				<h2> Upload the records</h2>
+				<h4> Upload the records</h4>
 
 				<Form onSubmit={onSubmit}>
 					<Form.Group controlId='formFile' className='mb-3'>
@@ -78,6 +108,7 @@ const FileUpload = (props) => {
 						</Button>
 					</Form.Group>
 				</Form>
+				<ToastContainer />
 			</div>
 		);
 	} else {

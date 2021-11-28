@@ -1,0 +1,49 @@
+.patientPage, .hospitalPage {
+    background-color: #94D0CC;
+    height: 100%;
+}
+
+.table-row1 {
+    border: 1px solid black;
+    padding: 8px;
+    background-color: #709FB0;
+    outline-color: brown;
+}
+.table-row2 {
+    border: 1px solid black;
+    padding: 8px;
+    background-color: #A0C1B8;
+}
+.table-row3 {
+    border: 1px solid black;
+    padding: 8px;
+    background-color: #709FB0;
+}
+.table-row4 {
+    border: 1px solid black;
+    padding: 8px;
+    background-color: #A0C1B8;
+}
+.table-row5 {
+    border: 1px solid black;
+    padding: 8px;
+    background-color: #99BBAD;
+ }
+
+ .table-row5:hover{
+     background-color: #F7F7E8;
+ }
+ .table-row1:hover, .table-row2:hover {
+    background-color: #F4EBC1;
+ }
+
+ .upload  {
+     margin-left: 25px;
+     padding: 5px;
+ }
+
+ a {
+    width: 100%;
+    overflow: hidden;
+    display: inline-block;
+  }
