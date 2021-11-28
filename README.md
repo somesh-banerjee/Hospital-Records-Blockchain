@@ -40,15 +40,21 @@ npm start
 6) React JS
 
 ## Features
-1) 
-2) 
+1) Decentralized Database for all reports of patients which can be easily accessible by all the hospitals.
+2) As we are storing the Records in blockchain and IPFS it will be untampered by any entity.
+3) No need to provide any proof of authenticity, as the records are in blockchain.
 
 
 ## Screenshots and Video
+Home page
 ![](./img/Homepage.png)
+Register page
 ![](./img/Registerpg.png)
+Hospital page
 ![](./img/Hospitalpg.png)
+Patient Page
 ![](./img/Patientpage.png)
+Uploading Document
 ![](./img/upDoc.png)
 
 
