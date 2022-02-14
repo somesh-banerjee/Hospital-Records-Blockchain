@@ -1,5 +1,4 @@
 import web3 from './web3';
-import SuperAdmin from './contracts/superadmin.json';
 
 const abi = [
 	{

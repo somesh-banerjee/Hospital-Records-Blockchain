@@ -18,6 +18,7 @@ const FileUpload = (props) => {
 	const handleInput = (event) => {
 		event.preventDefault();
 		const { name, value } = event.target;
+		console.log(name);
 		setInput(value);
 	};
 
@@ -66,7 +67,7 @@ const FileUpload = (props) => {
 		console.log("Submitting the form...");
 		wait();
 		const hash = await ipfs.add(fileHash.buffer);
-		const url = `https://ipfs.infura.io/ipfs/${hash.path}`;
+		//const url = `https://ipfs.infura.io/ipfs/${hash.path}`;
 		console.log(hash.path);
 		const accounts = await window.ethereum.request({
 			method: "eth_accounts",

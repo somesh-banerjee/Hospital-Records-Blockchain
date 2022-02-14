@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Button, Row, Col, Alert } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
 import Contract from "../ethereum/superadmin";
 import { Redirect } from "react-router-dom";
 import Register from "./Register";
 
 const Hero = () => {
 	const [url, setUrl] = useState("");
-	const [found, setFound] = useState(false);
+	//const [found, setFound] = useState(false);
 
 	const handleClick = async () => {
 		let accounts;
@@ -32,7 +32,7 @@ const Hero = () => {
 			console.log("yha pe log kr rha hu");
 			if (exist) {
 				console.log("patient");
-				setFound(true)
+				//setFound(true)
 				//redirect to patient page
 				// <Redirect push to={"/patient/accounts[0]"} />
 				setUrl(`/patient/${accounts[0]}`);
