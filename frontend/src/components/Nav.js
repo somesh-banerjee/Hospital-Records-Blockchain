@@ -7,7 +7,7 @@ const Nav = (props) => {
 		<div>
 			<Navbar className="topnav" >
 				<Container>
-					<Navbar.Brand as='h1' className='navbar-brand' className="ml-5" >{props.name}</Navbar.Brand>
+					<Navbar.Brand as='h1' className='navbar-brand ml-5' >{props.name}</Navbar.Brand>
 					<Navbar.Toggle />
 					<Navbar.Collapse className='justify-content-end'>
 					</Navbar.Collapse>
